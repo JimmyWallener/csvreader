@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="javacsv">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../javacsv" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$PROJECT_DIR$/../../../javacsv/doc" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../../javacsv/src" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../../javacsv" recursive="false" />
+  </library>
+</component>
