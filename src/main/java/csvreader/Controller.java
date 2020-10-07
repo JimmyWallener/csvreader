@@ -116,8 +116,6 @@ public class Controller implements Initializable {
         unitCostTextField.setText("");
         totalTextField.setText("");
     }
-    // This should close the program on selecting Exit in MenuList
-
 
 
     // Not so good looking code for populating Observable List with Model.
