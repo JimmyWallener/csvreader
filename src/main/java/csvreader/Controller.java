@@ -7,11 +7,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import csvreader.model.DataModel;
 import csvreader.utils.FileManager;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -40,8 +43,7 @@ public class Controller implements Initializable {
     @FXML private TextField unitsTextField;
     @FXML private TextField unitCostTextField;
     @FXML private TextField totalTextField;
-
-
+    @FXML private Button resetBtn;
 
     private ObservableList<DataModel> dm = FXCollections.observableArrayList();
     private final FileManager fm = new FileManager();
@@ -107,14 +109,15 @@ public class Controller implements Initializable {
 
     // Resets the Text Fields
     public void resetField() {
-        orderDateTextField.setText("");
-        regionTextField.setText("");
-        rep1TextField.setText("");
-        rep2TextField.setText("");
-        itemTextField.setText("");
-        unitsTextField.setText("");
-        unitCostTextField.setText("");
-        totalTextField.setText("");
+
+        orderDateTextField.clear();
+        regionTextField.clear();
+        rep1TextField.clear();
+        rep2TextField.clear();
+        itemTextField.clear();
+        unitsTextField.clear();
+        unitCostTextField.clear();
+        totalTextField.clear();
     }
 
 

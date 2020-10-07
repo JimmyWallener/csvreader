@@ -45,7 +45,7 @@
             <TableColumn minWidth="20.0" prefWidth="130.0" text="Column" />
          </columns>
       </TableView>
-      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="1680.0" spacing="10.0">
+      <HBox fx:id="textFields" alignment="CENTER" prefHeight="80.0" prefWidth="1680.0" spacing="10.0">
          <TextField fx:id="orderDateTextField" promptText="Order Date"/>
          <TextField fx:id="regionTextField" promptText="Region"/>
          <TextField fx:id="rep1TextField" promptText="Representative"/>
@@ -57,7 +57,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1322.0" spacing="10.0">
          <Button mnemonicParsing="false" onMouseClicked="#addToRecord" text="Add to Record"/>
-         <Button mnemonicParsing="false" onMouseClicked="#resetField" text="Reset Fields"/>
+         <Button fx:id="resetBtn" mnemonicParsing="false" onMouseClicked="#resetField" text="Reset Fields"/>
       </HBox>
    </VBox>
 </AnchorPane>
