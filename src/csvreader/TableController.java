@@ -18,7 +18,7 @@ import csvreader.model.DataModel;
 import csvreader.utils.FileManager;
 
 
-public class Controller implements Initializable {
+public class TableController implements Initializable {
     @FXML private TableColumn<DataModel,String> orderDate;
     @FXML private TableColumn<DataModel,String> region;
     @FXML private TableColumn<DataModel,String> rep1;
@@ -108,7 +108,7 @@ public class Controller implements Initializable {
     }
 
     // Gets TextField Value and creates a new record to be added
-    public void addToRecord(){
+    public void addNewRecordToTableData(){
         DataModel addData = new DataModel(orderDateTextField.getText(), regionTextField.getText(), rep1TextField.getText(),
                 rep2TextField.getText(), itemTextField.getText(), unitsTextField.getText(), unitCostTextField.getText(),
                 totalTextField.getText());
@@ -116,7 +116,7 @@ public class Controller implements Initializable {
     }
 
     // Resets the Text Fields
-    public void resetField() {
+    public void resetInputFields() {
         orderDateTextField.clear();
         regionTextField.clear();
         rep1TextField.clear();
@@ -127,7 +127,7 @@ public class Controller implements Initializable {
         totalTextField.clear();
     }
 
-    public void saveChanges() {
+    public void saveTableData() {
        List<DataModel> fileSave = table.getItems();
        fm.writeDataToCsv(fileSave);
     }

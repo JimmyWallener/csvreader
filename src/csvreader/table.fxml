@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csvreader.Controller">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csvreader.TableController">
    <VBox>
       <MenuBar>
          <Menu mnemonicParsing="false" text="File">
-            <MenuItem id="save" mnemonicParsing="false" onAction="#saveChanges" text="Save" />
+            <MenuItem id="save" mnemonicParsing="false" onAction="#saveTableData" text="Save" />
          </Menu>
       </MenuBar>
       <TableView fx:id="table" editable="true">
@@ -42,8 +42,8 @@
          <TextField fx:id="totalTextField" promptText="Total Amount"/>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
-         <Button mnemonicParsing="false" onMouseClicked="#addToRecord" text="Add to Record"/>
-         <Button fx:id="resetBtn" mnemonicParsing="false" onMouseClicked="#resetField" text="Reset Fields"/>
+         <Button mnemonicParsing="false" onMouseClicked="#addNewRecordToTableData" text="Add to Record"/>
+         <Button fx:id="resetBtn" mnemonicParsing="false" onMouseClicked="#resetInputFields" text="Reset Fields"/>
       </HBox>
    </VBox>
 </AnchorPane>
