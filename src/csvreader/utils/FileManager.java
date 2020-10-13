@@ -1,13 +1,11 @@
 package csvreader.utils;
 
-
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.*;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.opencsv.exceptions.CsvValidationException;
-import csvreader.model.DataModel;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,40 +14,37 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import csvreader.model.DataModel;
+
 public class FileManager {
 
-    CSVReader reader = null;
-    String[] data;
-    ArrayList<String[]> compiledData = new ArrayList<>();
-
-    public ArrayList<String[]> csvParser(){
+    public ArrayList<String[]> parseCsvFile(){
+        ArrayList<String[]> compiledData = new ArrayList<>();
 
         try {
-            String file = "sample.csv";
-            reader = new CSVReader(new FileReader(file));
+            CSVReader reader = new CSVReader(new FileReader("sample.csv"));
+            String[] data;
 
             while((data = reader.readNext()) != null) {
                 compiledData.add(data);
             }
 
             reader.close();
-        }catch(IOException | CsvValidationException e) {
+        } catch (IOException | CsvValidationException e) {
             e.printStackTrace();
         }
+
         return compiledData;
     }
-    // Creates a new CSV file with a
-    public void writeDataToCsv(List<DataModel> list) {
-        String newFile = "temp.csv";
+
+    public void writeTableDataToCsvFile(List<DataModel> list) {
 
         try{
-            Writer writer = new FileWriter(newFile);
+            Writer writer = new FileWriter("temp.csv");
             writer.append(header());
+
             StatefulBeanToCsv<DataModel> toCsv = new StatefulBeanToCsvBuilder<DataModel>(writer)
-                    .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
-                    .withLineEnd(CSVWriter.DEFAULT_LINE_END)
-                    .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
-                    .withEscapechar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
+                    .withApplyQuotesToAll(false)
                     .withOrderedResults(true)
                     .build();
 
@@ -60,6 +55,7 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+
     /*Creates Headers for export CSV File based on Annotations in DataModel.Class.
       Filters column names & positions, then sort the positions with Comparator and positions as reference.
       Map all columns in its respective positions, then join column value together with "," delimiter.
@@ -72,6 +68,4 @@ public class FileManager {
                 .map(f->f.getAnnotation(CsvBindByName.class).column())
                 .collect(Collectors.joining(",")) + "\n";
     }
-
-
 }
