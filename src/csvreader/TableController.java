@@ -11,7 +11,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import csvreader.model.DataModel;
@@ -37,17 +36,17 @@ public class TableController implements Initializable {
     @FXML private TextField unitCostTextField;
     @FXML private TextField totalTextField;
 
-    private final ObservableList<DataModel> dm = FXCollections.observableArrayList();
-    private final FileManager fm = new FileManager();
+    private final ObservableList<DataModel> tableData = FXCollections.observableArrayList();
+    private final FileManager fileManager = new FileManager();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeTableData();
+        initializeTable();
         getTableData();
     }
 
     // Populate Table Data
-    private void initializeTableData(){
+    private void initializeTable(){
         orderDate.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
         region.setCellValueFactory(new PropertyValueFactory<>("region"));
         rep1.setCellValueFactory(new PropertyValueFactory<>("rep1"));
@@ -57,11 +56,11 @@ public class TableController implements Initializable {
         unitCost.setCellValueFactory(new PropertyValueFactory<>("unitCost"));
         total.setCellValueFactory(new PropertyValueFactory<>("total"));
 
-        makeTableDataEditable();
+        makeTableEditable();
     }
 
     // Makes Cells Editable and saves new Value to Object
-    private void makeTableDataEditable(){
+    private void makeTableEditable(){
         orderDate.setCellFactory(TextFieldTableCell.forTableColumn());
         orderDate.setOnEditCommit(td -> td.getTableView().getItems().get(td.getTablePosition().getRow()).setOrderDate(td.getNewValue()));
 
@@ -89,7 +88,7 @@ public class TableController implements Initializable {
 
     // Not so good looking code for populating Observable List with Model.
     public void getTableData() {
-        ArrayList<String[]> csvData = fm.csvParser();
+        ArrayList<String[]> csvData = fileManager.parseCsvFile();
 
         csvData.stream().skip(1).forEach(items -> {
             String date = items[0];
@@ -100,11 +99,11 @@ public class TableController implements Initializable {
             String units = items[5];
             String unitCost = items[6];
             String total = items[7];
-            dm.add(new DataModel(date, region, rep1, rep2, item, units, unitCost, total));
+            tableData.add(new DataModel(date, region, rep1, rep2, item, units, unitCost, total));
         });
 
         // Sends Observable List Data to Table View.
-        table.setItems(dm);
+        table.setItems(tableData);
     }
 
     // Gets TextField Value and creates a new record to be added
@@ -112,7 +111,7 @@ public class TableController implements Initializable {
         DataModel addData = new DataModel(orderDateTextField.getText(), regionTextField.getText(), rep1TextField.getText(),
                 rep2TextField.getText(), itemTextField.getText(), unitsTextField.getText(), unitCostTextField.getText(),
                 totalTextField.getText());
-        dm.add(addData);
+        tableData.add(addData);
     }
 
     // Resets the Text Fields
@@ -128,7 +127,6 @@ public class TableController implements Initializable {
     }
 
     public void saveTableData() {
-       List<DataModel> fileSave = table.getItems();
-       fm.writeDataToCsv(fileSave);
+       fileManager.writeTableDataToCsvFile(table.getItems());
     }
 }
